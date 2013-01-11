@@ -22,6 +22,7 @@
             params.push('response_type=token');
             params.push('redirect_uri=http://goauth.apphb.com/');
 
+            var oauthUrl = 'https://accounts.google.com/o/oauth2/auth';
             var uri = oauthUrl + '?' + params.join('&');
             var result = encodeURI(uri);
 
@@ -34,9 +35,9 @@
             params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
         }
 
-// And send the token over to the server
+        // And send the token over to the server
         var req = new XMLHttpRequest();
-// consider using POST so query isn't logged
+        // consider using POST so query isn't logged
         req.open('GET', 'https://' + window.location.host + '/catchtoken?' + queryString, true);
 
         req.onreadystatechange = function (e) {
