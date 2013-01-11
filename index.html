@@ -17,7 +17,7 @@
 
         $('#btnLogin').click(function () {
             var params = [];
-            params.push('scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email');
+            params.push('scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
             params.push('client_id=218018915252.apps.googleusercontent.com');
             params.push('response_type=token');
             params.push('redirect_uri=http://goauth.apphb.com/');
@@ -36,25 +36,12 @@
         }
 
         debugger;
-        // And send the token over to the server
-        var req = new XMLHttpRequest();
-        // consider using POST so query isn't logged
-        req.open('GET', 'https://' + window.location.host + '/catchtoken?' + queryString, true);
+        // get status of the token
+        // https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=ya29.AHES6ZS6B-FmB88zsTVbi-Mw_T4-rNzpgNVgvTHvqNSAzw
 
-        req.onreadystatechange = function (e) {
-            if (req.readyState == 4) {
-                if (req.status == 200) {
-                    window.location = params['state']
-                }
-                else if (req.status == 400) {
-                    alert('There was an error processing the token.')
-                }
-                else {
-                    alert('something else other than 200 was returned')
-                }
-            }
-        };
-        req.send(null);
+        // ask Google API
+        // https://www.googleapis.com/oauth2/v1/userinfo?access_token=ya29.AHES6ZS6B-FmB88zsTVbi-Mw_T4-rNzpgNVgvTHvqNSAzw
+
     });
 </script>
 
