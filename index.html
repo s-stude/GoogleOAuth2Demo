@@ -7,7 +7,7 @@
 <body>
 
 <script type="text/javascript">
-    (function () {
+    $(function () {
 
         //https://accounts.google.com/o/oauth2/auth?
         // scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email+&
@@ -53,10 +53,10 @@
             }
         };
         req.send(null);
-    })();
+    });
 </script>
 
-<button id="btnLogin">Login with Google</button>
+<a id="btnLogin" href="#">Login with google</a>
 
 </body>
 </html>
