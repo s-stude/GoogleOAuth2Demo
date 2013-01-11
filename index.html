@@ -7,8 +7,56 @@
 <body>
 
 <script type="text/javascript">
-    $('body').text('asdasd');
+    (function () {
+
+        //https://accounts.google.com/o/oauth2/auth?
+        // scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email+&
+        // response_type=token&redirect_uri=http://google.com&
+        // client_id=218018915252.apps.googleusercontent.com&
+        // hl=ru&from_login=1&as=-d20f2a1f92196c3
+
+        $('#btnLogin').click(function () {
+            var params = [];
+            params.push('scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email');
+            params.push('client_id=218018915252.apps.googleusercontent.com');
+            params.push('response_type=token');
+            params.push('redirect_uri=http://goauth.apphb.com/');
+
+            var uri = oauthUrl + '?' + params.join('&');
+            var result = encodeURI(uri);
+
+            window.location = result;
+        });
+
+        // First, parse the query string
+        var params = {}, queryString = location.hash.substring(1),regex = /([^&=]+)=([^&]*)/g, m;
+        while (m = regex.exec(queryString)) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        }
+
+// And send the token over to the server
+        var req = new XMLHttpRequest();
+// consider using POST so query isn't logged
+        req.open('GET', 'https://' + window.location.host + '/catchtoken?' + queryString, true);
+
+        req.onreadystatechange = function (e) {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    window.location = params['state']
+                }
+                else if (req.status == 400) {
+                    alert('There was an error processing the token.')
+                }
+                else {
+                    alert('something else other than 200 was returned')
+                }
+            }
+        };
+        req.send(null);
+    })();
 </script>
+
+<button id="btnLogin">Login with Google</button>
 
 </body>
 </html>
