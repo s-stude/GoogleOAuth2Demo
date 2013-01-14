@@ -3,49 +3,28 @@
 <head>
     <title></title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/google-oauth2.js"></script>
 </head>
 <body>
-
 <script type="text/javascript">
-    $(function () {
-
-        //https://accounts.google.com/o/oauth2/auth?
-        // scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email+&
-        // response_type=token&redirect_uri=http://google.com&
-        // client_id=218018915252.apps.googleusercontent.com&
-        // hl=ru&from_login=1&as=-d20f2a1f92196c3
-
-        $('#btnLogin').click(function () {
-            var params = [];
-            params.push('scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
-            params.push('client_id=218018915252.apps.googleusercontent.com');
-            params.push('response_type=token');
-            params.push('redirect_uri=http://goauth.apphb.com/');
-
-            var oauthUrl = 'https://accounts.google.com/o/oauth2/auth';
-            var uri = oauthUrl + '?' + params.join('&');
-            var result = encodeURI(uri);
-
-            window.location = result;
+    $(function(){
+        GO2.init({
+            client_id:'218018915252.apps.googleusercontent.com',
+            scope:['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+            redirect_uri: 'http://goauth.apphb.com/'
         });
 
-        // First, parse the query string
-        var params = {}, queryString = location.hash.substring(1),regex = /([^&=]+)=([^&]*)/g, m;
-        while (m = regex.exec(queryString)) {
-            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-        }
+        GO2.onlogin = function loginComplete(e){
+            debugger;
+        };
 
-        debugger;
-        // get status of the token
-        // https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=ya29.AHES6ZS6B-FmB88zsTVbi-Mw_T4-rNzpgNVgvTHvqNSAzw
-
-        // ask Google API
-        // https://www.googleapis.com/oauth2/v1/userinfo?access_token=ya29.AHES6ZS6B-FmB88zsTVbi-Mw_T4-rNzpgNVgvTHvqNSAzw
-
+        $('#btnLogin').click(function(){
+            GO2.login();
+        });
     });
 </script>
 
-<a id="btnLogin" href="#">Login with google</a>
+<a href="#" id="btnLogin">Login with Google by 3rd party lib</a>
 
 </body>
 </html>
