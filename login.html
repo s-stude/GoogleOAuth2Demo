@@ -14,11 +14,9 @@
             redirect_uri: 'http://goauth.apphb.com/'
         });
 
-        GO2.onLogin = loginComplete;
-
-        function loginComplete(e){
+        GO2.onlogin = function loginComplete(e){
             debugger;
-        }
+        };
 
         $('#btnLogin').click(function(){
             GO2.login();
